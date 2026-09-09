@@ -1,18 +1,22 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3001/api";
+const API_URL = "http://192.168.1.10:3001/api";
+
+const api = axios.create({
+  baseURL: API_URL,
+});
 
 export const getTrips = async () => {
-  const response = await axios.get(`${API_URL}/trips`);
+  const response = await api.get("/trips");
   return response.data;
 };
 
 export const getTripById = async (id) => {
-  const response = await axios.get(`${API_URL}/trips/${id}`);
+  const response = await api.get(`/trips/${id}`);
   return response.data;
 };
 
 export const createTrip = async (trip) => {
-  const response = await axios.post(`${API_URL}/trips`, trip);
+  const response = await api.post("/trips", trip);
   return response.data;
 };

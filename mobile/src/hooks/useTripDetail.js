@@ -13,7 +13,7 @@ export const useTripDetail = (id) => {
 
       const data = await getTripById(id);
       setTrip(data);
-    } catch (err) {
+    } catch (error) {
       setError("Impossible de charger le voyage.");
     } finally {
       setLoading(false);
@@ -24,6 +24,7 @@ export const useTripDetail = (id) => {
     if (id) {
       loadTrip();
     }
+    
   }, [id]);
 
   return {

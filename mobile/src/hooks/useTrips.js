@@ -13,7 +13,7 @@ export const useTrips = () => {
 
       const data = await getTrips();
       setTrips(data);
-    } catch (err) {
+    } catch (error) {
       setError("Impossible de charger les voyages.");
     } finally {
       setLoading(false);
