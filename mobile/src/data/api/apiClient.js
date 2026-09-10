@@ -1,22 +1,8 @@
 import axios from "axios";
 
-const API_URL = "http://192.168.1.10:3001/api";
-
-const api = axios.create({
-  baseURL: API_URL,
+const apiClient = axios.create({
+  baseURL: "http://192.168.1.10:3001/api",
+  timeout: 10000,
 });
 
-export const getTrips = async () => {
-  const response = await api.get("/trips");
-  return response.data;
-};
-
-export const getTripById = async (id) => {
-  const response = await api.get(`/trips/${id}`);
-  return response.data;
-};
-
-export const createTrip = async (trip) => {
-  const response = await api.post("/trips", trip);
-  return response.data;
-};
+export default apiClient;
