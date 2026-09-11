@@ -1,7 +1,13 @@
 import axios from "axios";
+import { Platform } from "react-native";
+
+const apiHost = Platform.select({
+  android: "http://10.0.2.2:3001",
+  default: "http://localhost:3001",
+});
 
 const apiClient = axios.create({
-  baseURL: "http://192.168.1.10:3001/api",
+  baseURL: `${apiHost}/api`,
   timeout: 10000,
 });
 

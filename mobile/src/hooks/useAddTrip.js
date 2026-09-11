@@ -1,33 +1,42 @@
-import { useEffect, useState } from "react";
-import { getTripById } from "../services/apiService";
+import { useState } from "react";
+import { createTrip } from "../services/apiService";
 
-export const useTripDetail = (id) => {
-  const [trip, setTrip] = useState(null);
-  const [loading, setLoading] = useState(true);
+export const useAddTrip = () => {
+  const [form, setForm] = useState({
+    title: "",
+    destination: "",
+    startDate: "",
+    endDate: "",
+    notes: "",
+  });
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const loadTrip = async () => {
+  const setField = (field, value) => {
+    setForm((currentForm) => ({
+      ...currentForm,
+      [field]: value,
+    }));
+  };
+
+  const submitTrip = async () => {
     try {
       setLoading(true);
       setError("");
 
-      const data = await getTripById(id);
-      setTrip(data);
+      return await createTrip(form);
     } catch (error) {
-      setError("Impossible de charger le voyage.");
+      setError("Impossible d'enregistrer le voyage.");
+      return null;
     } finally {
       setLoading(false);
     }
   };
 
-  useEffect(() => {
-    if (id) {
-      loadTrip();
-    }
-  }, [id]);
-
   return {
-    trip,
+    form,
+    setField,
+    submitTrip,
     loading,
     error,
   };

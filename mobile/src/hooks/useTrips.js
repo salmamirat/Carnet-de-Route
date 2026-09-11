@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
+import { useNavigation } from "expo-router";
 import { getTrips } from "../services/apiService";
 
 export const useTrips = () => {
+  const navigation = useNavigation();
   const [trips, setTrips] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -22,7 +24,8 @@ export const useTrips = () => {
 
   useEffect(() => {
     loadTrips();
-  }, []);
+    return navigation.addListener("focus", loadTrips);
+  }, [navigation]);
 
   return {
     trips,
